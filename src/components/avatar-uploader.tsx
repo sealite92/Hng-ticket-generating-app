@@ -9,28 +9,33 @@ interface AvatarUploaderProps {
 }
 
 export function AvatarUploader({ onImageUpload }: AvatarUploaderProps) {
+  //eslint-disable-next-line
+  const handleUpload = (res: any) => {
+    const uploadedUrl = res.info.url;
+    console.log(uploadedUrl);
 
-    const handleUpload = (res: any) => {
-        const uploadedUrl = res.info.url;
-        console.log(uploadedUrl);
+    onImageUpload(uploadedUrl);
+  };
 
-        onImageUpload(uploadedUrl);
-    };
-
-    return (
-        <CldUploadWidget onError={ () => {
-            return
-        } } uploadPreset="event-ticket" onSuccess={ (res) =>handleUpload(res)}>
-            {({ open }) => (
-                <Button className="w-full"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        open();
-                    }}
-                >
-                    Upload an Image
-                </Button>
-            )}
-        </CldUploadWidget>
-    );
+  return (
+    <CldUploadWidget
+      onError={() => {
+        return;
+      }}
+      uploadPreset="event-ticket"
+      onSuccess={(res) => handleUpload(res)}
+    >
+      {({ open }) => (
+        <Button
+          className="w-full"
+          onClick={(e) => {
+            e.preventDefault();
+            open();
+          }}
+        >
+          Upload an Image
+        </Button>
+      )}
+    </CldUploadWidget>
+  );
 }
