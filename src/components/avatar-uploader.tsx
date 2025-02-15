@@ -5,14 +5,13 @@ import { CldUploadWidget } from "next-cloudinary";
 import { Button } from "@/components/ui/button"; // Assuming you are using shadcn/ui
 
 interface AvatarUploaderProps {
-    onImageUpload: (url: string) => void; // Function to send image URL to parent
+  onImageUpload: (url: string) => void; // Function to send image URL to parent
 }
 
 export function AvatarUploader({ onImageUpload }: AvatarUploaderProps) {
   //eslint-disable-next-line
   const handleUpload = (res: any) => {
     const uploadedUrl = res.info.url;
-    console.log(uploadedUrl);
 
     onImageUpload(uploadedUrl);
   };

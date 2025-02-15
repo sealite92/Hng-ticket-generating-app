@@ -15,6 +15,7 @@ export function AttendeeDetails() {
   const [email, setEmail] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
+  const [avatarUrlError, setAvatarUrlError] = useState<string | null>(null);
 
   const { handleSetAttendeeDetails, handleSetBookingStep } = useTicketContext();
 
@@ -23,6 +24,10 @@ export function AttendeeDetails() {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    if (!imageUrl) {
+      setAvatarUrlError("Please upload an avatar");
+      return;
+    }
     handleSetAttendeeDetails({
       avatarUrl: imageUrl,
       name,
@@ -48,7 +53,7 @@ export function AttendeeDetails() {
       <div>
         <h2>Upload an Avatar</h2>
         <AvatarUploader onImageUpload={(url) => setImageUrl(url)} />
-        {/*{imageUrl && <Image src={imageUrl} alt="Uploaded Avatar" width={200} height={100} />}*/}
+        {avatarUrlError && <p className="text-red-500">{avatarUrlError}</p>}
       </div>
 
       <div className="grid w-full gap-1.5">
